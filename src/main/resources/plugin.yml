@@ -1,0 +1,11 @@
+name: RankPlaceHolders
+version: '${project.version}'
+main: net.playerrs.RankPlaceHolders
+api-version: '1.20'
+commands:
+    setpremiumpass:
+        description: Set the premium pass level for a player
+        permission: rankplaceholders.setpremiumpass
+        usage: /setpremiumpass <player> <level>
+        aliases:
+            - setpremium
