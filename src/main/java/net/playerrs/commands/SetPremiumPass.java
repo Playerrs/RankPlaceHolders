@@ -14,11 +14,11 @@ public class SetPremiumPass implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String s, String[] strings) {
 
         String player = strings[0];
-        int lvl = Integer.parseInt(strings[1]);
+        String lvl = strings[1];
 
 
 
-        savePlayerData(player, "premiumpass", String.valueOf(lvl));
+        savePlayerData(player, "premiumpass", lvl);
         sender.sendMessage(ChatColor.AQUA + "[RankPlaceHolders]: O nível de Premium Pass de " + player + " foi alterado para " + getPlayerData(player, "premiumpass"));
 
         return true;
