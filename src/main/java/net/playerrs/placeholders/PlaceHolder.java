@@ -36,8 +36,7 @@ public class PlaceHolder extends PlaceholderExpansion {
     }
 
     @Override
-    public String onRequest(OfflinePlayer player, String params) {
-
+    public String onRequest(OfflinePlayer player, @NotNull String params) {
 
         if(params.equalsIgnoreCase("premiumpass")){
             return getPlayerData(player.getName(), "premiumpass");
