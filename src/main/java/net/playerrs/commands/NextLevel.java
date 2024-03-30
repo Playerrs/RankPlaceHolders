@@ -39,7 +39,8 @@ public class NextLevel implements CommandExecutor {
         try {
             lvl = Integer.parseInt(getFileData("/data/", sender.getName() + ".json", "plevel"));
         } catch (NumberFormatException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
+            sender.sendMessage(ChatColor.RED + "[RankPlaceHolders]: You don't have a premium level :(");
             return false;
         }
 
@@ -65,9 +66,9 @@ public class NextLevel implements CommandExecutor {
 
         for(int i = 0; i < time.size(); i++) {
             if(playedTime >= time.get(i)) {
-                lvl = lvls.get(i);
+                lvl = i;
 
-                sender.sendMessage(String.valueOf(quests.get(i))); //unlock quest
+                sender.sendMessage(String.valueOf(quests.get(i))); //TODO unlock quest
 
             }
         }
