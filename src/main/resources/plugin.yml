@@ -4,9 +4,11 @@ main: net.playerrs.RankPlaceHolders
 api-version: '1.20'
 depend: [PlaceholderAPI]
 commands:
-    setpremiumpass:
-        description: Set the premium pass level for a player
-        permission: rankplaceholders.setpremiumpass
-        usage: /setpremiumpass <player> <level>
+    setpremiumlevel:
+        description: Set the premium level for a player
+        permission: rankplaceholders.setpremiumlevel
         aliases:
-            - setpremium
+            - setplevel
+    nextlevel:
+        description: Set the next level for a player
+        permission: rankplaceholders.nextlevel
