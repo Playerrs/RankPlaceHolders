@@ -1,23 +1,23 @@
 package net.playerrs;
 
 
-import net.playerrs.commands.SetPremiumPass;
+import me.clip.placeholderapi.PlaceholderAPI;
+import me.clip.placeholderapi.PlaceholderAPIPlugin;
+import me.clip.placeholderapi.PlaceholderHook;
+import me.clip.placeholderapi.expansion.PlaceholderExpansion;
+import net.playerrs.commands.NextLevel;
+import net.playerrs.commands.SetPremiumLevel;
+import net.playerrs.config.ConfigGen;
 import net.playerrs.placeholders.PlaceHolder;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
-import org.bukkit.event.server.ServerLoadEvent;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import java.util.Objects;
 
 public final class RankPlaceHolders extends JavaPlugin implements Listener {
 
     @Override
     public void onEnable() {
         // Plugin startup logic
-
-
-        getCommand("setpremiumpass").setExecutor(new SetPremiumPass());
 
 
         if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) { //
@@ -29,6 +29,11 @@ public final class RankPlaceHolders extends JavaPlugin implements Listener {
             getLogger().warning("Could not find PlaceholderAPI! This plugin is required.");
             Bukkit.getPluginManager().disablePlugin(this);
         }
+
+        getCommand("setpremiumlevel").setExecutor(new SetPremiumLevel());
+        getCommand("nextlevel").setExecutor(new NextLevel());
+        ConfigGen.generateConfigs();
+
         // Perform any one-time setup
         getLogger().info("   §4_____§5_   __§9__________§3_   ______§b_______  __");
         getLogger().info("  §4/_  _§5/ | / §9/ ____/  _§3/ | / /  _§b/_  __| \\/ /");

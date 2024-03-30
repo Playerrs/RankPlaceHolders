@@ -1,12 +1,11 @@
 package net.playerrs.placeholders;
 
-import me.clip.placeholderapi.PlaceholderAPI;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import net.playerrs.RankPlaceHolders;
 import org.bukkit.OfflinePlayer;
 import org.jetbrains.annotations.NotNull;
 
-import static net.playerrs.datahandler.FileManager.getPlayerData;
+import static net.playerrs.datahandler.FileManager.getFileData;
 
 public class PlaceHolder extends PlaceholderExpansion {
 
@@ -27,7 +26,7 @@ public class PlaceHolder extends PlaceholderExpansion {
 
     @Override
     public @NotNull String getVersion() {
-        return "1.0";
+        return "1.5";
     }
 
     @Override
@@ -38,9 +37,15 @@ public class PlaceHolder extends PlaceholderExpansion {
     @Override
     public String onRequest(OfflinePlayer player, @NotNull String params) {
 
-        if(params.equalsIgnoreCase("premiumpass")){
-            return getPlayerData(player.getName(), "premiumpass");
+        if(params.equalsIgnoreCase("plevel")){
+            return getFileData("/data/", player.getName() + ".json", "plevel");
         }
+
+        if(params.equalsIgnoreCase("displayplevel")){
+            return getFileData("/configs/", "lvls.json", getFileData("/data/", player.getName() + ".json", "plevel"));
+        }
+
+
         return null;
     }
 }
