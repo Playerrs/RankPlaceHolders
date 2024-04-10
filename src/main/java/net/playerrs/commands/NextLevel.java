@@ -8,9 +8,6 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.List;
 
 import static net.playerrs.config.ConfigGen.config;
 import static net.playerrs.datahandler.FileManager.getFileData;
@@ -42,10 +39,13 @@ public class NextLevel implements CommandExecutor {
             return false;
         }
 
-        lvl++;
+        if (lvl < config.ranks) {
+            lvl++;
+        }
 
         //sender.sendMessage("Your time played in hours: " + String.valueOf(playedTime));     //debug
-        sender.sendMessage("Your level: " + lvl);                           //debug
+        //sender.sendMessage("Your level: " + lvl);                           //debug
+        sender.sendMessage(ChatColor.AQUA + "[RankPlaceHolders]: You are now level: " + lvl + "!");
 
         saveFileData("/data/", sender.getName() + ".json", "plevel", String.valueOf(lvl));
         return true;

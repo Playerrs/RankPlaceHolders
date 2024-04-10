@@ -5,6 +5,7 @@ import com.focamacho.sealconfig.SealConfig;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
+import net.playerrs.datahandler.CacheHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 
@@ -55,6 +56,8 @@ public class ConfigGen {
 
             Bukkit.getServer().getConsoleSender().sendMessage(ChatColor.YELLOW + "[RankPlaceHolders]: Generated config of \"" + fileName + ".json\", modify it at \"" + fileToRead.getPath() + "\"");
 
+        } else {
+            CacheHandler.loadInCache("/configs/", fileName + ".json");
         }
     }
 
@@ -65,6 +68,8 @@ public class ConfigGen {
         generator("time", time, false);
         generator("lvls", lvls, true);
         generator("quests", quests, false);
+
+        CacheHandler.loadPlayersData("");
 
         loadConfig();
     }

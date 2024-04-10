@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Objects;
 
 public class FileManager {
     private static final File pluginFolder = new File("plugins/RankPlaceHolders");
@@ -47,6 +48,13 @@ public class FileManager {
             e.printStackTrace();
         }
 
+
+
+        if (Objects.equals(path, "/data/")) {
+            CacheHandler.loadPlayersData(fileName);
+        } else {
+            CacheHandler.loadInCache(path, fileName);
+        }
     }
 
     public static String getFileData(String path, String fileName, String dataIndex) {
@@ -68,6 +76,8 @@ public class FileManager {
 
         return ChatColor.RED + "[RankPlaceHolders]: This file does not have any data or does not exist!";
     };
+
+
     public static File getPluginFolder() {
         return pluginFolder;
     }

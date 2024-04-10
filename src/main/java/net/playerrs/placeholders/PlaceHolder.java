@@ -2,6 +2,7 @@ package net.playerrs.placeholders;
 
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import net.playerrs.RankPlaceHolders;
+import net.playerrs.datahandler.CacheHandler;
 import org.bukkit.OfflinePlayer;
 import org.jetbrains.annotations.NotNull;
 
@@ -30,7 +31,7 @@ public class PlaceHolder extends PlaceholderExpansion {
 
     @Override
     public @NotNull String getVersion() {
-        return "1.6";
+        return "1.83";
     }
 
     @Override
@@ -42,7 +43,8 @@ public class PlaceHolder extends PlaceholderExpansion {
     public String onRequest(OfflinePlayer player, @NotNull String params) {
 
         if(params.equalsIgnoreCase("plevel")){
-            return getFileData("/data/", player.getName() + ".json", "plevel");
+            //return getFileData("/data/", player.getName() + ".json", "plevel");
+            return CacheHandler.playersData.get(player.getName()).get("plevel");
         }
 
         if(params.equalsIgnoreCase("displayplevel")){
@@ -50,10 +52,11 @@ public class PlaceHolder extends PlaceholderExpansion {
 
 
             try {
-                displayLevel = getFileData("/configs/", "lvls.json", getFileData("/data/", player.getName() + ".json", "plevel"));
+                //displayLevel = getFileData("/configs/", "lvls.json", getFileData("/data/", player.getName() + ".json", "plevel"));
+                displayLevel = CacheHandler.lvls.get(Integer.parseInt(CacheHandler.playersData.get(player.getName()).get("plevel")));
             } catch (Exception e) {
                 //e.printStackTrace();
-                return "";
+                return config.displayDefault;
             }
 
             return displayLevel;
