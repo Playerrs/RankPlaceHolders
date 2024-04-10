@@ -10,5 +10,5 @@ public class RankPHConfig {
     public int ranks = 21;
 
     @Comment("Default display level for players.")
-    public String displayDefault = "0";
+    public String displayDefault = "";
 }

@@ -53,7 +53,7 @@ public class PlaceHolder extends PlaceholderExpansion {
                 displayLevel = getFileData("/configs/", "lvls.json", getFileData("/data/", player.getName() + ".json", "plevel"));
             } catch (Exception e) {
                 //e.printStackTrace();
-                return "";
+                return config.displayDefault;
             }
 
             return displayLevel;
