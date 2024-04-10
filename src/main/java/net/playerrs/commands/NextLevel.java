@@ -32,9 +32,7 @@ public class NextLevel implements CommandExecutor {
                 sender.sendMessage(ChatColor.RED + "Player not found");
                 return false;
             }
-        };
-
-
+        }
 
         try {
             lvl = Integer.parseInt(getFileData("/data/", sender.getName() + ".json", "plevel"));
@@ -44,37 +42,10 @@ public class NextLevel implements CommandExecutor {
             return false;
         }
 
-        int total = config.ranks;
-        List<Integer> time = new ArrayList<>();
-        for (int i = 0; i < total; i++) {
-            time.add(Integer.parseInt(getFileData("/configs/", "time.json", String.valueOf(i))));
-        }
+        lvl++;
 
-        List<Integer> lvls = new ArrayList<>();
-        for (int i = 0; i < total; i++) {
-            lvls.add(Integer.parseInt(getFileData("/configs/", "lvls.json", String.valueOf(i))));
-        }
-
-        List<Integer> quests = new ArrayList<>();
-        for (int i = 0; i < total; i++) {
-            quests.add(Integer.parseInt(getFileData("/configs/", "quests.json", String.valueOf(i))));
-        }
-
-
-        int playedTime = ((player.getStatistic(Statistic.PLAY_ONE_MINUTE) / 20) / 60) / 60;
-
-
-        for(int i = 0; i < time.size(); i++) {
-            if(playedTime >= time.get(i)) {
-                lvl = i;
-
-                sender.sendMessage(String.valueOf(quests.get(i))); //TODO unlock quest
-
-            }
-        }
-
-        sender.sendMessage("Your time played in hours: " + String.valueOf(playedTime));     //debug
-        sender.sendMessage("Your level: " + String.valueOf(lvl));                           //debug
+        //sender.sendMessage("Your time played in hours: " + String.valueOf(playedTime));     //debug
+        sender.sendMessage("Your level: " + lvl);                           //debug
 
         saveFileData("/data/", sender.getName() + ".json", "plevel", String.valueOf(lvl));
         return true;

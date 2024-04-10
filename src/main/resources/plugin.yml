@@ -12,3 +12,6 @@ commands:
     nextlevel:
         description: Set the next level for a player
         permission: rankplaceholders.nextlevel
+    unlockquest:
+        description: Unlock a quest
+        permission: rankplaceholders.unlockquest

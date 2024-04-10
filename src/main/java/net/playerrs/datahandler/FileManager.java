@@ -58,8 +58,9 @@ public class FileManager {
             try(FileReader reader = new FileReader(fileToRead)) {
                 Gson gson = new Gson();
                 readData =  gson.fromJson(reader, JsonObject.class);
-            } catch (IOException e) {
-                e.printStackTrace();
+            }
+            catch (IOException e) {
+                //e.printStackTrace();
             }
 
             return readData.get(dataIndex).getAsString();

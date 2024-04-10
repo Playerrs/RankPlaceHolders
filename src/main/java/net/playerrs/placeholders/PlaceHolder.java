@@ -5,7 +5,11 @@ import net.playerrs.RankPlaceHolders;
 import org.bukkit.OfflinePlayer;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.logging.Logger;
+
+import static net.playerrs.config.ConfigGen.config;
 import static net.playerrs.datahandler.FileManager.getFileData;
+import static org.bukkit.Bukkit.getLogger;
 
 public class PlaceHolder extends PlaceholderExpansion {
 
@@ -26,7 +30,7 @@ public class PlaceHolder extends PlaceholderExpansion {
 
     @Override
     public @NotNull String getVersion() {
-        return "1.5";
+        return "1.6";
     }
 
     @Override
@@ -42,7 +46,17 @@ public class PlaceHolder extends PlaceholderExpansion {
         }
 
         if(params.equalsIgnoreCase("displayplevel")){
-            return getFileData("/configs/", "lvls.json", getFileData("/data/", player.getName() + ".json", "plevel"));
+            String displayLevel;
+
+
+            try {
+                displayLevel = getFileData("/configs/", "lvls.json", getFileData("/data/", player.getName() + ".json", "plevel"));
+            } catch (Exception e) {
+                //e.printStackTrace();
+                return "";
+            }
+
+            return displayLevel;
         }
 
 

@@ -8,4 +8,7 @@ public class RankPHConfig {
             "Must be the same number of all other files\n" +
             "lvls.json, quests.json, time.json. Default: 21")
     public int ranks = 21;
+
+    @Comment("Default display level for players.")
+    public String displayDefault = "0";
 }

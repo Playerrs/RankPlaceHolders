@@ -7,6 +7,7 @@ import me.clip.placeholderapi.PlaceholderHook;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import net.playerrs.commands.NextLevel;
 import net.playerrs.commands.SetPremiumLevel;
+import net.playerrs.commands.UnlockQuest;
 import net.playerrs.config.ConfigGen;
 import net.playerrs.placeholders.PlaceHolder;
 import org.bukkit.Bukkit;
@@ -32,6 +33,7 @@ public final class RankPlaceHolders extends JavaPlugin implements Listener {
 
         getCommand("setpremiumlevel").setExecutor(new SetPremiumLevel());
         getCommand("nextlevel").setExecutor(new NextLevel());
+        getCommand("unlockquest").setExecutor(new UnlockQuest());
         ConfigGen.generateConfigs();
 
         // Perform any one-time setup
