@@ -1,53 +1,47 @@
 package net.playerrs.commands;
 
-import org.bukkit.Bukkit;
+import java.util.Map;
+import net.playerrs.config.ConfigGen;
+import net.playerrs.datahandler.CacheHandler;
+import net.playerrs.datahandler.FileManager;
 import org.bukkit.ChatColor;
-import org.bukkit.Statistic;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-
-import static net.playerrs.config.ConfigGen.config;
-import static net.playerrs.datahandler.FileManager.getFileData;
-import static net.playerrs.datahandler.FileManager.saveFileData;
-
 public class NextLevel implements CommandExecutor {
+    public NextLevel() {
+    }
 
-    @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] strings) {
-        int lvl;
-        Player player;
+        Player player = (Player)sender;
+        if (ConfigGen.config.useToken) {
+            if (strings.length == 0) {
+                player.sendMessage(ChatColor.RED + "[RankPlaceHolders]: Você precisa incluir o Token de verificação: /nextlevel <TOKEN>");
+                return false;
+            }
 
-        //verifications
-        if (strings.length == 0) {
-            player = (Player) sender;
-        } else {
-            player = Bukkit.getPlayer(strings[0]);
-            if (Bukkit.getPlayer(strings[0]) == null) {
-                sender.sendMessage(ChatColor.RED + "Player not found");
+            if (!strings[0].equals(ConfigGen.config.token)) {
+                player.sendMessage(ChatColor.RED + "[RankPlaceHolders]: Token inválido!");
                 return false;
             }
         }
 
+        int lvl;
         try {
-            lvl = Integer.parseInt(getFileData("/data/", sender.getName() + ".json", "plevel"));
-        } catch (NumberFormatException e) {
-            //e.printStackTrace();
-            sender.sendMessage(ChatColor.RED + "[RankPlaceHolders]: You don't have a premium level :(");
+            lvl = Integer.parseInt((String)((Map)CacheHandler.playersData.get(player.getName())).get("plevel"));
+        } catch (NumberFormatException var8) {
+            player.sendMessage(ChatColor.RED + "[RankPlaceHolders]: Você não tem um level premium :(");
             return false;
         }
 
-        if (lvl < config.ranks) {
-            lvl++;
+        if (lvl < ConfigGen.config.ranks) {
+            ++lvl;
         }
 
-        //sender.sendMessage("Your time played in hours: " + String.valueOf(playedTime));     //debug
-        //sender.sendMessage("Your level: " + lvl);                           //debug
-        sender.sendMessage(ChatColor.AQUA + "[RankPlaceHolders]: You are now level: " + lvl + "!");
-
-        saveFileData("/data/", sender.getName() + ".json", "plevel", String.valueOf(lvl));
+        player.sendMessage(ChatColor.AQUA + "[RankPlaceHolders]: Seu level Premium: " + lvl + " / " + ChatColor.RESET + (String)CacheHandler.lvls.get(lvl));
+        FileManager.saveFileData("/data/", sender.getName() + ".json", "plevel", String.valueOf(lvl));
         return true;
     }
 }
